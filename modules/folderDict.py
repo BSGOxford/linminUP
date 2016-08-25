@@ -38,29 +38,28 @@ def moveFile(args, fast5file):
 
 # ---------------------------------------------------------------------------
 def getHDFtime(args, f):
-    try:
-    	hdf = h5py.File(f)
-        expStartTime = \
-		hdf['UniqueGlobalKey/tracking_id'].attrs['exp_start_time']
-        reads = 'Analyses/EventDetection_000/Reads/'
+    with h5py.File(f) as hdf:
+        try:
+            expStartTime = \
+                    hdf['UniqueGlobalKey/tracking_id'].attrs['exp_start_time']
+            reads = 'Analyses/EventDetection_000/Reads/'
 
-        for read in hdf[reads]:
-		'''
-		# 0.64a .. 
-                startTime = hdf[ reads + read ].attrs['start_time'] 
-		readTime = startTime
-		'''
-		# 0.64b ...
-		# End time is Start time of final event 
-                #endTime = hdf[ reads + read + "/Events"][-1][-2] 
-		endTime = hdf[ reads + read + "/Events"].attrs['start'][-1    ]
+            for read in hdf[reads]:
+                    '''
+                    # 0.64a ..
+                    startTime = hdf[ reads + read ].attrs['start_time']
+                    readTime = startTime
+                    '''
+                    # 0.64b ...
+                    # End time is Start time of final event
+                    #endTime = hdf[ reads + read + "/Events"][-1][-2]
+                    endTime = hdf[ reads + read + "/Events"].attrs['start'][-1    ]
 
-		readTime = endTime
+                    readTime = endTime
 
-	timestamp =  int(expStartTime) + int(readTime)
-    	hdf.close()
-    except:
-	timestamp = -1
+            timestamp =  int(expStartTime) + int(readTime)
+        except:
+            timestamp = -1
     return timestamp
     
 
