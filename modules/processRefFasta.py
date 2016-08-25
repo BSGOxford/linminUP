@@ -124,11 +124,11 @@ def process_ref_fasta(
                 sys.exit(1)
         valid_fasta_handle.close()
 
-    n = len(files)
-    bar = mkBar(n)
+    records = list(SeqIO.parse(validated_ref, 'fasta'))
+    bar = mkBar(len(records))
     bar.start()
     x=0
-    for record in SeqIO.parse(validated_ref, 'fasta'):
+    for record in records:
 	bar.update(x)
 	x+=1
 	    
