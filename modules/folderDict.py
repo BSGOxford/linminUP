@@ -58,7 +58,6 @@ def getHDFtime(args, f):
                     readTime = endTime
 
             timestamp =  int(expStartTime) + int(readTime)
-            hdf.close()
         except:
             timestamp = -1
     return timestamp
