@@ -45,17 +45,17 @@ def getHDFtime(args, f):
             reads = 'Analyses/EventDetection_000/Reads/'
 
             for read in hdf[reads]:
-                    '''
-                    # 0.64a .. 
-                    startTime = hdf[ reads + read ].attrs['start_time'] 
-                    readTime = startTime
-                    '''
-                    # 0.64b ...
-                    # End time is Start time of final event 
-                    #endTime = hdf[ reads + read + "/Events"][-1][-2] 
-                    endTime = hdf[ reads + read + "/Events"].attrs['start'][-1    ]
+                '''
+                # 0.64a .. 
+                startTime = hdf[ reads + read ].attrs['start_time'] 
+                readTime = startTime
+                '''
+                # 0.64b ...
+                # End time is Start time of final event 
+                #endTime = hdf[ reads + read + "/Events"][-1][-2] 
+                endTime = hdf[ reads + read + "/Events"].attrs['start'][-1    ]
 
-                    readTime = endTime
+                readTime = endTime
 
             timestamp =  int(expStartTime) + int(readTime)
     except:
