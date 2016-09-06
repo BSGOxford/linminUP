@@ -39,7 +39,7 @@ def moveFile(args, fast5file):
 # ---------------------------------------------------------------------------
 def getHDFtime(args, f):
     try:
-        with h5py.File(f) as hdf:
+        with h5py.File(f, 'r') as hdf:
             expStartTime = \
                     hdf['UniqueGlobalKey/tracking_id'].attrs['exp_start_time']
             reads = 'Analyses/EventDetection_000/Reads/'
