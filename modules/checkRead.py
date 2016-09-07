@@ -271,12 +271,6 @@ def check_read(
         print 'Making new database: ', dbname
         print '='*80
         sys.stdout.flush()
-        dbF = open('dbname.txt','w')
-        dbF.write(dbname+"\n")
-        dbF.close()
-
-
-
 
         sql = 'CREATE DATABASE %s' % dbname
         cursor.execute(sql)
