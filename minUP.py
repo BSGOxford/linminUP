@@ -76,11 +76,14 @@ if __name__ == '__main__':
         config_file = os.path.join(os.path.sep, \
                                    os.path.dirname(os.path.realpath('__file__' \
                                    )), 'minup_posix.config')
-        logfolder = os.path.join(os.path.sep, \
-                                 os.path.dirname(os.path.realpath('__file__' \
-                                 )), 'minup_run_logs')
-        VALID_REF_DIR = os.path.join(os.path.sep, \
-                os.path.dirname(os.path.realpath('__file__')), \
+
+        default_log_dir = os.path.join(
+            os.path.sep,
+            os.path.dirname(os.path.realpath('__file__')),
+            'minup_run_logs',
+            )
+        VALID_REF_DIR = os.path.join(os.path.sep,
+                os.path.dirname(os.path.realpath('__file__')),
                 'valid_reference_fasta_files')
         BWA_INDEX_DIR = os.path.join(os.path.sep, \
                 os.path.dirname(os.path.realpath('__file__')), \
@@ -94,9 +97,13 @@ if __name__ == '__main__':
     if OPER is 'windows':
         config_file = os.path.join(os.path.sep, sys.prefix,
                                    'minup_windows.config')
-        logfolder = os.path.join(os.path.sep, sys.prefix,
-                                 'minup_run_logs')
-        VALID_REF_DIR = os.path.join(os.path.sep, sys.prefix, \
+
+        default_log_dir = os.path.join(
+            os.path.sep,
+            sys.prefix,
+            'minup_run_logs',
+            )
+        VALID_REF_DIR = os.path.join(os.path.sep, sys.prefix,
                 'valid_reference_fasta_files')
         BWA_INDEX_DIR = os.path.join(os.path.sep, sys.prefix, \
                 'bwa_indexes')
@@ -434,6 +441,14 @@ configargparse.ArgParser(description='minup: A program to analyse minION fast5 f
         version=('%(prog)s version={version}').format(version=__version__),
     )
 
+    parser.add_argument(
+        '-logdir',
+        '--log-directory',
+        help='Directory where munUP will write its logs.',
+        default=default_log_dir,
+        dest='logdir',
+        )
+
 #-------------------------------------------------------------------------------
 
     args = parser.parse_args()
@@ -448,8 +463,7 @@ configargparse.ArgParser(description='minup: A program to analyse minION fast5 f
         BWA_INDEX_DIR = REF_DIR + '/gbwa.indexes/'
         LAST_INDEX_DIR = REF_DIR + '/glast.indexes/'
 
-
-
+    logfolder = args.logdir
 
     if not os.path.exists(logfolder):
         os.makedirs(logfolder)
